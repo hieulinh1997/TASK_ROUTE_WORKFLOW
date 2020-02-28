@@ -1,0 +1,255 @@
+<html>
+
+<head>
+    <title>ルート管理画面</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href="./css/style.css" rel="stylesheet"> -->
+
+    <script type="text/javascript" src="./js/bootstrap-datetimepicker.min.js"></script>
+    <link href="https://tarruda.github.io/bootstrap-datetimepicker/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.21/angular-material.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="https://tarruda.github.io/bootstrap-datetimepicker/assets/css/layout.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="https://tarruda.github.io/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="//stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" id="bootstrap-css">
+    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="bootstable.js"></script>
+</head>
+
+<body>
+
+    <div class="row first">
+        <div class="col-6 col-md-7 first-1">
+            <a>基幹システム</a>
+        </div>
+        <div class="col-6 col-md-5 first-2">
+            <button><img src="././assets/icons/user.png"><a>姓 名</a></button>
+        </div>
+    </div>
+
+    <div class="row second">
+        <div class="col-6 col-md-2 second-1 dropdown">
+            <img src="././assets/icons/menu.png">
+            <a>MENU</a>
+            <div class="dropdown-content">
+                <button>1</button>
+                <button>2</button>
+            </div>
+        </div>
+        <div class="col-6 col-md-2 second-1">
+
+            <img src="././assets/icons/home.png">
+            <a>ホーム</a>
+        </div>
+        <div class="col-6 col-md-2 second-1">
+
+            <img src="././assets/icons/mail.png">
+            <a>メッセージ</a>
+        </div>
+        <div class="col-6 col-md-2 second-1">
+
+            <img src="././assets/icons/book.png">
+            <a>タスク一覧</a>
+        </div>
+        <div class="col-6 col-md-2 second-1">
+            <img src="././assets/icons/edit.png">
+            <a>案件管理</a>
+        </div>
+        <div class="col-6 col-md-2 second-2">
+            <img src="././assets/icons/note.png">
+            <a>日報管理</a>
+        </div>
+
+    </div>
+
+    <div class="three">
+
+        <div class="col-12 three-1">
+            <img src="././assets/icons/write.png">
+            <a>ルート管理画面</a>
+        </div>
+
+        <div class="col-12 three-2" *ngIf="showListError">
+            <div class="col-6 col-md-9 three-2-1">
+                <img src="././assets/icons/warring.png"><br>
+
+                <!-- show list error -->
+                <table *ngFor="let error of errorList" id="table" class="col-12 table-editable" style="border: none
+                        !important;">
+                    <tr>
+                        {{error.idError}} : {{error.contentError}}
+                    </tr>
+                </table>
+                <!-- end show list error -->
+            </div>
+        </div>
+
+
+        <!-- card-body -->
+        <div class="card-body">
+            <div id="table" class="col-12 table-editable">
+                <button style="width: 110px;text-align: right;" class="table-add float-right mb-3 mr-2">
+                        <a (click)="addRow()"><img
+                                src="././assets/icons/add.png">
+                            新規作成
+                        </a>
+                    </button>
+
+            </div>
+            <br>
+            <br>
+
+            <div id="table" class="table-wrapper-scroll-y
+                    my-custom-scrollbar">
+
+                <!-- data table -->
+                <table class="table table-bordered
+                        table-striped text-center mb-0">
+                    <tr>
+                        <th [hidden]="!isHidden">index</th>
+                        <th [hidden]="!isHidden" class="text-center"> seq</th>
+                        <th class="text-center">ワークフローID</th>
+                        <th class="text-center">ワークフロー名称</th>
+                        <th class="text-center">適用開始日</th>
+                        <th class="text-center">適用終了日</th>
+                        <th class="text-center">バージョン</th>
+                        <th class="text-center">コピーして新規</th>
+                        <th class="text-center">編集</th>
+                        <th [hidden]="!isHidden" class="text-center">
+                            yuukou_flg</th>
+                    </tr>
+                    <tr *ngFor="let route of routes; let i= index" class="tr" style="border: 1px solid; height:
+                            1px!important;">
+                        <td [hidden]="!isHidden" style="text-align:
+                                center;">{{i}}</td>
+                        <td [hidden]="!isHidden"> {{route.seq}}</td>
+                        <td class="td-span1" style="text-align: center;">
+                            <span class="tr-span1">
+                                    {{route.workflow_id}}
+                            </span>
+                        </td>
+                        <td style="text-align: center; ">
+                            <input class="tr-span3 " type="text " [(ngModel)]="route.workflow_mei " [disabled]="!route.isEditable " />
+                            <!-- <input type="submit " name=" " class="smLogin " value="ログイン "> -->
+                        </td>
+                        <td style="text-align: center; ">
+
+                            <button mat-raised-button (click)="picker.open() " class="button-calendar " style="width: 20px!important; ">
+                                    <img src="././assets/icons/calendar.png "></button>
+                            <mat-form-field class="example-full-width ">
+                                <!-- <input matInput [matDatepicker]="picker " [(ngModel)]="route.tekiyoukaishi_bi " [disabled]="enabled "> -->
+                                <input matInput [matDatepicker]="picker " [(ngModel)]="route.tekiyoukaishi_bi " [disabled]="!route.isEditable ">
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+
+                        </td>
+                        <td style="text-align: center; ">
+                            <button mat-raised-button (click)="picker2.open() " class="button-calendar " style="width: 20px!important; ">
+                                    <img src="././assets/icons/calendar.png "></button>
+                            <mat-form-field class="example-full-width ">
+                                <input matInput [matDatepicker]="picker2 " [(ngModel)]="route.tekiyoushuryou_bi " [disabled]="!route.isEditable ">
+                                <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field>
+                        </td>
+                        <td style="text-align: center; ">
+                            <span class="tr-span2 ">
+                                    {{route.version}}
+                                </span>
+                        </td>
+                        <td style="text-align: center; ">
+                            <button style="width: 40px; height: 30px; " type="button " mdbBtn color="danger " rounded="true " size="sm " class="my-0 " (click)="copyNew(i,route.seq,route.workflow_id, route.version) ">
+                                    <img src="././assets/icons/add.png ">
+                                </button>
+                        </td>
+                        <td style="text-align: center; ">
+
+                            <button style="width: 40px; " class="btn-setting " *ngIf="!route.isEditable " (click)="checkFlagUpdate(route.yuukou_flg, route, isEditable,content2) ">
+                                    <img src="././assets/icons/setting.png ">
+                                </button>
+                            <button style="width: 40px; " class="btn-setting " *ngIf="route.isEditable " (click)="route.isEditable=!route.isEditable ">
+                                <i class="fa fa-times"></i>
+                                    </button>
+                            <button style="width: 40px; " class="btn-setting " *ngIf="route.isEditable " (click)="updateList(route.seq, route.workflow_id, route.workflow_mei, route.tekiyoukaishi_bi, route.tekiyoushuryou_bi, route.version, route.yuukou_flg)
+                            " (click)="route.isEditable=!route.isEditable ">
+                                    <i class="fa fa-check "></i>
+                                </button>
+
+                        </td>
+                        <td [hidden]="!isHidden"> {{route.yuukou_flg}}</td>
+                    </tr>
+
+                </table>
+                <!-- end data table -->
+
+                <!-- modal when click reristration button -->
+                <ng-template #content let-modal>
+                    <div class="form-group ">
+                        <div class="col-sm-12 " style="text-align: center ">
+                            <img src="././assets/icons/warring.png ">
+                        </div>
+                        <br>
+                        <div [hidden]="isShow " class="col-sm-12 " style="text-align: center; ">
+                            編集内容を登録しますか？
+                        </div>
+                        <div [hidden]="!isShow " class="col-sm-12 " style="text-align: center; ">
+                            登録しました
+                        </div>
+                        <button mat-button cdkFocusInitial hidden></button><br>
+                        <button class="btn-signup " [hidden]="isShow " mat-button (click)="signUp() " style="width: 80px; border: 1px solid;border-radius: 0px;border-color: black; ">登録</button>
+                        <button class="btn-dismiss " [hidden]="isShow " mat-button (click)="modal.dismiss( 'Cross
+                                click') " style="width: 110px; border: 1px solid;border-radius: 0px;border-color: black; ">キャンセル</button>
+                        <button class="btn-dismiss-close " [hidden]="!isShow " mat-button (click)="modal.dismiss( 'Cross
+                                click');reload() " style="width: 110px; border: 1px solid;border-radius: 0px;border-color: black; ">閉じる
+                            </button>
+                    </div>
+
+                </ng-template>
+                <!-- end modal when click reristration button -->
+
+                <!-- modal when click setting button -->
+                <ng-template #content2 let-modal>
+                    <div class="form-group ">
+                        <div class="col-sm-12 " style="text-align: center ">
+                            <img src="././assets/icons/warring.png ">
+                        </div>
+                        <br>
+                        <div [hidden]="isShow " class="col-sm-12 " style="text-align: center; ">
+
+                            コンテンツが失われる可能性があります
+                        </div>
+                        <button mat-button cdkFocusInitial hidden></button><br>
+
+                        <button class="btn-dismiss-close " [hidden]="isShow " mat-button (click)="modal.dismiss( 'Cross
+                                click') " style="width: 110px; border: 1px solid;border-radius: 0px;border-color: black; ">
+                                わかった</button>
+
+                    </div>
+
+                </ng-template>
+                <!-- end modal when click setting button -->
+
+            </div>
+
+            <div id="table " class="col-12 table-editable subcsrice ">
+                <button class="btn btn-lg btn-outline-primary " (click)="open(content) " style="height: 50px;width: 100px;text-align: center; ">登 録</button>
+                <!-- <button mat-raised-button (click)="openDialog() " style="width: 80px;text-align: center;background:#fde77b; " class="btn ">登 録</button> -->
+            </div>
+
+        </div>
+        <!-- end card-body -->
+    </div>
+
+
+</body>
+
+</html>

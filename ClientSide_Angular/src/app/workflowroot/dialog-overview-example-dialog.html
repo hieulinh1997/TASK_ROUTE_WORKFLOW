@@ -1,0 +1,22 @@
+<div mat-dialog-actions class="form-group row" style="font-size: 14px;">
+    <!-- <div class="col-sm-12" id="errLogin"> -->
+    <div class="col-sm-12" style="text-align: center;font-size: 40px;">
+        <img src="././assets/icons/warring.png">
+    </div>
+
+    <br>
+    <div class="col-sm-12">
+        <a class="span-err">編集内容を登録しますか？</a>
+    </div>
+
+
+
+    <!-- </div> -->
+</div>
+<div mat-dialog-actions>
+    <!-- cdkFocusInitial -->
+    <button mat-button cdkFocusInitial hidden></button><br>
+    <!-- [mat-dialog-close]="data.animal" -->
+    <button mat-button (click)="signUp()" style="width: 80px; border: 1px solid;border-radius: 0px;border-color: black;">登録</button>
+    <button mat-button (click)="onNoClick()" style="width: 110px; border: 1px solid;border-radius: 0px;border-color: black;">キャンセル</button>
+</div>
